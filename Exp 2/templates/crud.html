@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Experiment 2</title>
+    <style>
+        body { font-family: Arial; padding: 20px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        table, th, td { border: 1px solid black; }
+        th, td { padding: 8px; text-align: center; }
+        form { margin-top: 20px; }
+        .message { margin-top: 15px; color: green; font-weight: bold; }
+        input[type="text"], input[type="number"] { width: 100px; }
+    </style>
+</head>
+<body>
+    <h2>Health Informatics Test Database</h2>
+
+    {% if message %}
+        <div class="message">{{ message }}</div>
+    {% endif %}
+
+    <form method="POST">
+        <h3>Add / Edit Patient</h3>
+        <input type="number" name="ID" placeholder="ID" required>
+        <input type="text" name="Name" placeholder="Name">
+        <input type="number" name="Age" placeholder="Age">
+        <input type="text" name="Gender" placeholder="Gender">
+        <input type="text" name="Mobile" placeholder="Mobile">
+        <input type="number" name="Weight" placeholder="Weight">
+        <input type="number" name="Height" placeholder="Height">
+        <input type="text" name="Disease" placeholder="Disease">
+        <input type="text" name="Treatment" placeholder="Treatment">
+        <input type="number" name="Amount_Paid" placeholder="Amount">
+        <br><br>
+        <button name="add" type="submit">➕ Add</button>
+        <button name="update" type="submit">✏️ Update</button>
+        <button name="delete" type="submit" onclick="return confirm('Delete this record?')">🗑️ Delete</button>
+    </form>
+
+    <h3>All Patients</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th><th>Name</th><th>Age</th><th>Gender</th><th>Mobile</th>
+                <th>Weight</th><th>Height</th><th>Disease</th><th>Treatment</th><th>Amount Paid</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in rows %}
+            <tr>
+                {% for cell in row %}
+                    <td>{{ cell }}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

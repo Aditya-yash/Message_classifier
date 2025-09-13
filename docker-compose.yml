@@ -1,0 +1,27 @@
+version: "3.8"
+
+services:
+  streamlit_app:
+    build: ./  # path where your Dockerfile is
+    container_name: streamlit_app_2
+    ports:
+      - "8501:8501"   # expose only internally, nginx will use this
+    networks:
+      - app_network
+
+  nginx_proxy:
+    image: nginx:latest
+    container_name: nginx_proxy
+    ports:
+      - "80:80"       # expose port 80 to the host
+    volumes:
+     - ./nginx/default.conf:/etc/nginx/nconf.d/default.conf:ro
+
+    depends_on:
+      - streamlit_app
+    networks:
+      - app_network
+
+networks:
+  app_network:
+    driver: bridge
